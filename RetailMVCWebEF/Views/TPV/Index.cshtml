@@ -1,0 +1,208 @@
+﻿@using RetailMVCWebEF.Models.VL
+@{
+    ViewBag.Title = "Index";
+    List<ProductViewModel> ProductsTPV = ViewBag.ProductsTPV as List<ProductViewModel>;
+    List<SelectListItem> CategoriesTPV = ViewBag.CategoriesTPV as List<SelectListItem>;
+
+    List<TableViewModel> TablesTPV = ViewBag.TablesTPV as List<TableViewModel>;
+    List<OrderViewModel> OrdersTPV = ViewBag.OrdersTPV as List<OrderViewModel>;
+}
+<style>
+    .rectangulo {
+        display: inline-block;
+        padding: 5px 10px;
+        /*background-color: #4CAF50;*/
+        /*color: white;*/
+        text-align: center;
+        text-decoration: none;
+        font-size: 12px;
+        border: 1px solid #4CAF50;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
+        font-family: Arial, sans-serif;
+    }
+
+    th,
+    td {
+        padding: 4px;
+        text-align: center;
+    }
+
+    th {
+        border-bottom: 2px solid #ddd;
+    }
+
+    td {
+        border-bottom: 1px solid #ddd;
+    }
+
+    tfoot {
+        font-weight: bold;
+    }
+
+    .vertical-divider {
+        border: none;
+        border-left: 2px solid black;
+        height: 500px;
+        margin: 0px 30px;
+    }
+
+    /*Input y Boton buscar*/
+
+    .input-group .form-control {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    .input-group .input-group-append {
+        margin-left: -1px;
+    }
+
+</style>
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+
+
+            @for (int i = 0; i < OrdersTPV.Count; i++)
+            {
+                string card = "collapseOne" + i;
+                <div id="accordion">
+                    <div class="card">
+                        <div class="card-header" id="headingOne">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="@card">
+                                    Mesa @OrdersTPV.ElementAt(i).TableTbl.code
+                                </button>
+                            </h5>
+                        </div>
+                    </div>
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Producto</th>
+                                        <th>Cantidad</th>
+                                        <th>Precio</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        double totalPriceOrder = 0;
+                                    }
+                            @for (int j = 0; j < OrdersTPV.ElementAt(i).ProductOrderDetails.Count; j++)
+                            {
+
+                                ProductOrderDetailViewModel currentOrderDetail = OrdersTPV.ElementAt(i).ProductOrderDetails.ElementAt(j);
+                                double productOrderTotalPrice = currentOrderDetail.quantity * currentOrderDetail.Product.price;
+                                totalPriceOrder += productOrderTotalPrice;
+                                                                    <tr>
+                                                <td>@currentOrderDetail.Product.name</td>
+                                                <td>@currentOrderDetail.quantity</td>
+                                                <td>@currentOrderDetail.Product.price</td>
+                                                <td>$@productOrderTotalPrice</td>
+
+                                            </tr>
+                                        }
+
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="3">Total:</td>
+                                            <td>$@totalPriceOrder</td>
+                                        </tr>
+                                    </tfoot>
+                                    
+                                </table>
+                            <br>
+
+                            <button type="button" class="btn btn-outline-success">Cerrar Orden</button>
+                        </div>
+                    </div>
+                    </div>
+            }
+
+
+
+                </div>
+
+        <div class="col-md-1"> <hr class="vertical-divider"> </div>
+        <div class="col-md-8">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-2"><h5>Mesa</h5></div>
+                    @foreach (var table in TablesTPV)
+                    {
+                        <div class="col-sm text-center border">
+                            @using (Html.BeginForm("AbrirOrdenEnMesa", "TPV", FormMethod.Post))
+                            {
+                                @Html.AntiForgeryToken()
+
+                                @Html.Hidden("tableId", table.id)
+                                @Html.Hidden("restaurantId", 1)
+
+                                <div id="miDiv">
+                                    <input type="submit" value="@table.code" />
+                                </div>
+                            }
+                        </div>
+                    }
+
+                    @*@Html.Partial("~/Views/ComponentesTPV/TableOrder.cshtml", table)*@
+
+
+                    
+                </div>
+            </div>
+
+            <br>
+            <div class="row">
+                @for (int i = 0; i < CategoriesTPV.Count; i++)
+                {
+                    <div class="col-sm rectangulo"><h5>@CategoriesTPV.ElementAt(i).Text</h5></div>
+                }
+
+            </div>
+            <br>
+
+            <nav class="navbar navbar-light bg-light justify-content-between">
+                <div class="row">
+                    @using (Html.BeginForm("Index", "TPV", FormMethod.Get))
+                    {
+                        <div class="input-group me-lg-4">
+                            <input class="form-control " type="search" id="searchProductByCodeOrName" name="searchProductByCodeOrName" placeholder="Nombre o codigo..." >
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-outline-secondary" type="button">Buscar</button>
+                            </div>
+                        </div>
+
+                    }
+                </div>
+            </nav>
+            <br>
+            <div class="container">
+                <div class="row">
+                    @foreach (var item in ProductsTPV)
+                    {
+                        @Html.Partial("~/Views/ComponentesTPV/Product.cshtml", item)
+                    }
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+

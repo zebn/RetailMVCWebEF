@@ -1,0 +1,40 @@
+﻿
+@model RetailMVCWebEF.Models.VL.ProductViewModel
+@{
+    Layout = null;
+}
+
+<link href="~/Content/product.css" rel="stylesheet" type="text/css" />
+
+<div class="col-sm">
+    <h5>@Model.name</h5>
+    <div class="imagen">
+        <img src="@Model.imageUrl" />
+    </div>
+    <div class="numero">
+        <span class="minus">-</span>
+        <span class="valor">0</span>
+        <span class="plus">+</span>
+    </div>
+</div>
+
+
+    <script>
+        $(document).ready(function() {
+            $('.minus').click(function () {
+                let valor = parseInt($('.valor').text());
+                if (valor > 0) {
+                    valor--;
+                    $('.valor').text(valor);
+                }
+            });
+
+        $('.plus').click(function() {
+            let valor = parseInt($('.valor').text());
+        valor++;
+        $('.valor').text(valor);
+        });
+    });
+</script>
+
+

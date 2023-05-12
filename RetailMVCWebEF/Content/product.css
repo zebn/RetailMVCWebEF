@@ -1,0 +1,39 @@
+﻿
+.product {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 20px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+}
+
+.imagen {
+	margin-top: 10px;
+	width: 150px;
+	height: 150px;
+	overflow: hidden;
+	border-radius: 50 %;
+}
+
+	.imagen img {
+		width: 100 %;
+		height: auto;
+	}
+
+.numero {
+	display: flex;
+	align-items: center;
+	margin-top: 10px;
+}
+
+	.numero span {
+		font-size: 24px;
+		font-weight: bold;
+		margin: 0 10px;
+		cursor: pointer;
+	}
+
+	.numero.valor {
+		font-size: 36px;
+	}

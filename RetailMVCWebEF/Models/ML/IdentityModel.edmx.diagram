@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8ad304d9d77a4c818e1020eaa8555426" Name="Diagram1" ZoomLevel="73">
+        <EntityTypeShape EntityType="GestionHosteleriaGenNHibernateModel1.Book" Width="1.5" PointX="5.25" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GestionHosteleriaGenNHibernateModel1.OrderTbl" Width="1.5" PointX="8.25" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="GestionHosteleriaGenNHibernateModel1.Product" Width="1.5" PointX="3" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="GestionHosteleriaGenNHibernateModel1.ProductOrderDetail" Width="1.5" PointX="10.5" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GestionHosteleriaGenNHibernateModel1.Restaurant" Width="1.5" PointX="0.5" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="GestionHosteleriaGenNHibernateModel1.TableTbl" Width="1.5" PointX="3" PointY="16.375" IsExpanded="true" />
+        <AssociationConnector Association="GestionHosteleriaGenNHibernateModel1.FK_80E0A1FD" ManuallyRouted="false" />
+        <AssociationConnector Association="GestionHosteleriaGenNHibernateModel1.FK_84691DA0" ManuallyRouted="false" />
+        <AssociationConnector Association="GestionHosteleriaGenNHibernateModel1.FK_7D1A021F" ManuallyRouted="false" />
+        <AssociationConnector Association="GestionHosteleriaGenNHibernateModel1.FK_EE8F6E7A" ManuallyRouted="false" />
+        <AssociationConnector Association="GestionHosteleriaGenNHibernateModel1.FK_F8854F6E" ManuallyRouted="false" />
+        <AssociationConnector Association="GestionHosteleriaGenNHibernateModel1.FK_7B3DFDFD" ManuallyRouted="false" />
+        <AssociationConnector Association="GestionHosteleriaGenNHibernateModel1.FK_F3C97C6" ManuallyRouted="false" />
+        <AssociationConnector Association="GestionHosteleriaGenNHibernateModel1.FK_B5259BF6" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="GestionHosteleriaGenNHibernateModel1.AspNetRole" Width="1.5" PointX="6.375" PointY="15.75" />
+        <EntityTypeShape EntityType="GestionHosteleriaGenNHibernateModel1.AspNetUserClaim" Width="1.5" PointX="10.5" PointY="15.625" />
+        <EntityTypeShape EntityType="GestionHosteleriaGenNHibernateModel1.AspNetUser" Width="1.5" PointX="8.375" PointY="15.25" />
+        <AssociationConnector Association="GestionHosteleriaGenNHibernateModel1.FK_AspNetUserClaims_AspNetUsers_UserId" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

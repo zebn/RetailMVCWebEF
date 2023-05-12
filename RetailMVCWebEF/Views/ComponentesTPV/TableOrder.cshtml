@@ -1,0 +1,22 @@
+﻿
+@model RetailMVCWebEF.Models.VL.TableViewModel
+@{
+    Layout = null;
+}
+<div class="col-sm text-center border">
+    @using (Html.BeginForm("AbrirOrdenEnMesa", "TPV", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.Hidden("tableId", @Model.id)
+        @Html.Hidden("restaurantId", 1)
+        @*@Html.Hidden("restaurantId", @Model.FK_id_idRestaurant)*@
+
+    <div id="miDiv">
+        <input type="submit" value="@Model.code"  />
+        
+    </div>
+    }
+    </div>
+
+

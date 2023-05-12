@@ -1,0 +1,694 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="GestionHosteleriaGenNHibernateModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" />
+          <Property Name="NormalizedName" Type="nvarchar" MaxLength="256" />
+          <Property Name="ConcurrencyStamp" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" />
+          <Property Name="NormalizedUserName" Type="nvarchar" MaxLength="256" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="NormalizedEmail" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="ConcurrencyStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEnd" Type="datetimeoffset" Precision="7" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="idBook" />
+          </Key>
+          <Property Name="idBook" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="clientNumber" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="phone" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="time" Type="datetime" Nullable="false" />
+          <Property Name="FK_id_idTableTbl" Type="int" />
+          <Property Name="FK_id_idRestaurant" Type="int" />
+        </EntityType>
+        <EntityType Name="OrderTbl">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="creationTime" Type="datetime" Nullable="false" />
+          <Property Name="isActive" Type="bit" Nullable="false" />
+          <Property Name="total" Type="float" Nullable="false" />
+          <Property Name="isPaid" Type="bit" Nullable="false" />
+          <Property Name="FK_id_idTable" Type="int" />
+          <Property Name="FK_id_idRestaurant" Type="int" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="isActive" Type="bit" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="allergens" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="nutritionFacts" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="price" Type="real" Nullable="false" />
+          <Property Name="imageUrl" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="code" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="FK_id_idRestaurant" Type="int" />
+        </EntityType>
+        <EntityType Name="ProductOrderDetail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="quantity" Type="int" Nullable="false" />
+          <Property Name="FK_id_idProduct" Type="int" />
+          <Property Name="FK_id_idOrders" Type="int" />
+        </EntityType>
+        <EntityType Name="Restaurant">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="address" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TableTbl">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="isAvailable" Type="bit" Nullable="false" />
+          <Property Name="code" Type="int" Nullable="false" />
+          <Property Name="capacity" Type="int" Nullable="false" />
+          <Property Name="FK_id_idRestaurant" Type="int" />
+        </EntityType>
+        <Association Name="FK_7B3DFDFD">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="ProductOrderDetail" Type="Self.ProductOrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ProductOrderDetail">
+              <PropertyRef Name="FK_id_idProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_7D1A021F">
+          <End Role="TableTbl" Type="Self.TableTbl" Multiplicity="0..1" />
+          <End Role="OrderTbl" Type="Self.OrderTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TableTbl">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="OrderTbl">
+              <PropertyRef Name="FK_id_idTable" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_80E0A1FD">
+          <End Role="Restaurant" Type="Self.Restaurant" Multiplicity="0..1" />
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restaurant">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="FK_id_idRestaurant" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_84691DA0">
+          <End Role="TableTbl" Type="Self.TableTbl" Multiplicity="0..1" />
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TableTbl">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="FK_id_idTableTbl" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUserClaims_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_B5259BF6">
+          <End Role="Restaurant" Type="Self.Restaurant" Multiplicity="0..1" />
+          <End Role="TableTbl" Type="Self.TableTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restaurant">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TableTbl">
+              <PropertyRef Name="FK_id_idRestaurant" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EE8F6E7A">
+          <End Role="OrderTbl" Type="Self.OrderTbl" Multiplicity="0..1" />
+          <End Role="ProductOrderDetail" Type="Self.ProductOrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderTbl">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ProductOrderDetail">
+              <PropertyRef Name="FK_id_idOrders" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_F3C97C6">
+          <End Role="Restaurant" Type="Self.Restaurant" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restaurant">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="FK_id_idRestaurant" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_F8854F6E">
+          <End Role="Restaurant" Type="Self.Restaurant" Multiplicity="0..1" />
+          <End Role="OrderTbl" Type="Self.OrderTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restaurant">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="OrderTbl">
+              <PropertyRef Name="FK_id_idRestaurant" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GestionHosteleriaGenNHibernateModel1StoreContainer">
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Book" EntityType="Self.Book" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderTbl" EntityType="Self.OrderTbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductOrderDetail" EntityType="Self.ProductOrderDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Restaurant" EntityType="Self.Restaurant" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TableTbl" EntityType="Self.TableTbl" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_7B3DFDFD" Association="Self.FK_7B3DFDFD">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ProductOrderDetail" EntitySet="ProductOrderDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_7D1A021F" Association="Self.FK_7D1A021F">
+            <End Role="TableTbl" EntitySet="TableTbl" />
+            <End Role="OrderTbl" EntitySet="OrderTbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_80E0A1FD" Association="Self.FK_80E0A1FD">
+            <End Role="Restaurant" EntitySet="Restaurant" />
+            <End Role="Book" EntitySet="Book" />
+          </AssociationSet>
+          <AssociationSet Name="FK_84691DA0" Association="Self.FK_84691DA0">
+            <End Role="TableTbl" EntitySet="TableTbl" />
+            <End Role="Book" EntitySet="Book" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUserClaims_AspNetUsers_UserId" Association="Self.FK_AspNetUserClaims_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_B5259BF6" Association="Self.FK_B5259BF6">
+            <End Role="Restaurant" EntitySet="Restaurant" />
+            <End Role="TableTbl" EntitySet="TableTbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EE8F6E7A" Association="Self.FK_EE8F6E7A">
+            <End Role="OrderTbl" EntitySet="OrderTbl" />
+            <End Role="ProductOrderDetail" EntitySet="ProductOrderDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_F3C97C6" Association="Self.FK_F3C97C6">
+            <End Role="Restaurant" EntitySet="Restaurant" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_F8854F6E" Association="Self.FK_F8854F6E">
+            <End Role="Restaurant" EntitySet="Restaurant" />
+            <End Role="OrderTbl" EntitySet="OrderTbl" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GestionHosteleriaGenNHibernateModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="idBook" />
+          </Key>
+          <Property Name="idBook" Type="Int32" Nullable="false" />
+          <Property Name="clientNumber" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="phone" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FK_id_idTableTbl" Type="Int32" />
+          <Property Name="FK_id_idRestaurant" Type="Int32" />
+          <NavigationProperty Name="Restaurant" Relationship="Self.FK_80E0A1FD" FromRole="Book" ToRole="Restaurant" />
+          <NavigationProperty Name="TableTbl" Relationship="Self.FK_84691DA0" FromRole="Book" ToRole="TableTbl" />
+        </EntityType>
+        <EntityType Name="OrderTbl">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="creationTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="isActive" Type="Boolean" Nullable="false" />
+          <Property Name="total" Type="Double" Nullable="false" />
+          <Property Name="isPaid" Type="Boolean" Nullable="false" />
+          <Property Name="FK_id_idTable" Type="Int32" />
+          <Property Name="FK_id_idRestaurant" Type="Int32" />
+          <NavigationProperty Name="TableTbl" Relationship="Self.FK_7D1A021F" FromRole="OrderTbl" ToRole="TableTbl" />
+          <NavigationProperty Name="ProductOrderDetails" Relationship="Self.FK_EE8F6E7A" FromRole="OrderTbl" ToRole="ProductOrderDetail" />
+          <NavigationProperty Name="Restaurant" Relationship="Self.FK_F8854F6E" FromRole="OrderTbl" ToRole="Restaurant" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="isActive" Type="Boolean" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="allergens" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="nutritionFacts" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="price" Type="Single" Nullable="false" />
+          <Property Name="imageUrl" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="code" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FK_id_idRestaurant" Type="Int32" />
+          <NavigationProperty Name="ProductOrderDetails" Relationship="Self.FK_7B3DFDFD" FromRole="Product" ToRole="ProductOrderDetail" />
+          <NavigationProperty Name="Restaurant" Relationship="Self.FK_F3C97C6" FromRole="Product" ToRole="Restaurant" />
+        </EntityType>
+        <EntityType Name="ProductOrderDetail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+          <Property Name="FK_id_idProduct" Type="Int32" />
+          <Property Name="FK_id_idOrders" Type="Int32" />
+          <NavigationProperty Name="OrderTbl" Relationship="Self.FK_EE8F6E7A" FromRole="ProductOrderDetail" ToRole="OrderTbl" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_7B3DFDFD" FromRole="ProductOrderDetail" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Restaurant">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Books" Relationship="Self.FK_80E0A1FD" FromRole="Restaurant" ToRole="Book" />
+          <NavigationProperty Name="OrderTbls" Relationship="Self.FK_F8854F6E" FromRole="Restaurant" ToRole="OrderTbl" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_F3C97C6" FromRole="Restaurant" ToRole="Product" />
+          <NavigationProperty Name="TableTbls" Relationship="Self.FK_B5259BF6" FromRole="Restaurant" ToRole="TableTbl" />
+        </EntityType>
+        <EntityType Name="TableTbl">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="isAvailable" Type="Boolean" Nullable="false" />
+          <Property Name="code" Type="Int32" Nullable="false" />
+          <Property Name="capacity" Type="Int32" Nullable="false" />
+          <Property Name="FK_id_idRestaurant" Type="Int32" />
+          <NavigationProperty Name="Books" Relationship="Self.FK_84691DA0" FromRole="TableTbl" ToRole="Book" />
+          <NavigationProperty Name="OrderTbls" Relationship="Self.FK_7D1A021F" FromRole="TableTbl" ToRole="OrderTbl" />
+          <NavigationProperty Name="Restaurant" Relationship="Self.FK_B5259BF6" FromRole="TableTbl" ToRole="Restaurant" />
+        </EntityType>
+        <Association Name="FK_80E0A1FD">
+          <End Role="Restaurant" Type="Self.Restaurant" Multiplicity="0..1" />
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restaurant">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="FK_id_idRestaurant" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_84691DA0">
+          <End Role="TableTbl" Type="Self.TableTbl" Multiplicity="0..1" />
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TableTbl">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="FK_id_idTableTbl" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_7D1A021F">
+          <End Role="TableTbl" Type="Self.TableTbl" Multiplicity="0..1" />
+          <End Role="OrderTbl" Type="Self.OrderTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TableTbl">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="OrderTbl">
+              <PropertyRef Name="FK_id_idTable" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EE8F6E7A">
+          <End Role="OrderTbl" Type="Self.OrderTbl" Multiplicity="0..1" />
+          <End Role="ProductOrderDetail" Type="Self.ProductOrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderTbl">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ProductOrderDetail">
+              <PropertyRef Name="FK_id_idOrders" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_F8854F6E">
+          <End Role="Restaurant" Type="Self.Restaurant" Multiplicity="0..1" />
+          <End Role="OrderTbl" Type="Self.OrderTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restaurant">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="OrderTbl">
+              <PropertyRef Name="FK_id_idRestaurant" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_7B3DFDFD">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="ProductOrderDetail" Type="Self.ProductOrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ProductOrderDetail">
+              <PropertyRef Name="FK_id_idProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_F3C97C6">
+          <End Role="Restaurant" Type="Self.Restaurant" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restaurant">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="FK_id_idRestaurant" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_B5259BF6">
+          <End Role="Restaurant" Type="Self.Restaurant" Multiplicity="0..1" />
+          <End Role="TableTbl" Type="Self.TableTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restaurant">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TableTbl">
+              <PropertyRef Name="FK_id_idRestaurant" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GestionHosteleriaGenNHibernateEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Books" EntityType="Self.Book" />
+          <EntitySet Name="OrderTbls" EntityType="Self.OrderTbl" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
+          <EntitySet Name="ProductOrderDetails" EntityType="Self.ProductOrderDetail" />
+          <EntitySet Name="Restaurants" EntityType="Self.Restaurant" />
+          <EntitySet Name="TableTbls" EntityType="Self.TableTbl" />
+          <AssociationSet Name="FK_80E0A1FD" Association="Self.FK_80E0A1FD">
+            <End Role="Restaurant" EntitySet="Restaurants" />
+            <End Role="Book" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK_84691DA0" Association="Self.FK_84691DA0">
+            <End Role="TableTbl" EntitySet="TableTbls" />
+            <End Role="Book" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK_7D1A021F" Association="Self.FK_7D1A021F">
+            <End Role="TableTbl" EntitySet="TableTbls" />
+            <End Role="OrderTbl" EntitySet="OrderTbls" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EE8F6E7A" Association="Self.FK_EE8F6E7A">
+            <End Role="OrderTbl" EntitySet="OrderTbls" />
+            <End Role="ProductOrderDetail" EntitySet="ProductOrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_F8854F6E" Association="Self.FK_F8854F6E">
+            <End Role="Restaurant" EntitySet="Restaurants" />
+            <End Role="OrderTbl" EntitySet="OrderTbls" />
+          </AssociationSet>
+          <AssociationSet Name="FK_7B3DFDFD" Association="Self.FK_7B3DFDFD">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="ProductOrderDetail" EntitySet="ProductOrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_F3C97C6" Association="Self.FK_F3C97C6">
+            <End Role="Restaurant" EntitySet="Restaurants" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_B5259BF6" Association="Self.FK_B5259BF6">
+            <End Role="Restaurant" EntitySet="Restaurants" />
+            <End Role="TableTbl" EntitySet="TableTbls" />
+          </AssociationSet>
+          <EntitySet Name="AspNetRoles" EntityType="GestionHosteleriaGenNHibernateModel1.AspNetRole" />
+          <EntitySet Name="AspNetUserClaims" EntityType="GestionHosteleriaGenNHibernateModel1.AspNetUserClaim" />
+          <EntitySet Name="AspNetUsers" EntityType="GestionHosteleriaGenNHibernateModel1.AspNetUser" />
+          <AssociationSet Name="FK_AspNetUserClaims_AspNetUsers_UserId" Association="GestionHosteleriaGenNHibernateModel1.FK_AspNetUserClaims_AspNetUsers_UserId">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="AspNetRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="450" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="NormalizedName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="ConcurrencyStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="450" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="GestionHosteleriaGenNHibernateModel1.FK_AspNetUserClaims_AspNetUsers_UserId" FromRole="AspNetUserClaim" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="450" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="NormalizedUserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="NormalizedEmail" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ConcurrencyStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEnd" Type="DateTimeOffset" Precision="7" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="GestionHosteleriaGenNHibernateModel1.FK_AspNetUserClaims_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
+        </EntityType>
+        <Association Name="FK_AspNetUserClaims_AspNetUsers_UserId">
+          <End Type="GestionHosteleriaGenNHibernateModel1.AspNetUser" Role="AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="GestionHosteleriaGenNHibernateModel1.AspNetUserClaim" Role="AspNetUserClaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaim">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GestionHosteleriaGenNHibernateModel1StoreContainer" CdmEntityContainer="GestionHosteleriaGenNHibernateEntities1">
+          <EntitySetMapping Name="Books">
+            <EntityTypeMapping TypeName="GestionHosteleriaGenNHibernateModel1.Book">
+              <MappingFragment StoreEntitySet="Book">
+                <ScalarProperty Name="idBook" ColumnName="idBook" />
+                <ScalarProperty Name="clientNumber" ColumnName="clientNumber" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="FK_id_idTableTbl" ColumnName="FK_id_idTableTbl" />
+                <ScalarProperty Name="FK_id_idRestaurant" ColumnName="FK_id_idRestaurant" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderTbls">
+            <EntityTypeMapping TypeName="GestionHosteleriaGenNHibernateModel1.OrderTbl">
+              <MappingFragment StoreEntitySet="OrderTbl">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="creationTime" ColumnName="creationTime" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="isPaid" ColumnName="isPaid" />
+                <ScalarProperty Name="FK_id_idTable" ColumnName="FK_id_idTable" />
+                <ScalarProperty Name="FK_id_idRestaurant" ColumnName="FK_id_idRestaurant" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="GestionHosteleriaGenNHibernateModel1.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="allergens" ColumnName="allergens" />
+                <ScalarProperty Name="nutritionFacts" ColumnName="nutritionFacts" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="imageUrl" ColumnName="imageUrl" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="FK_id_idRestaurant" ColumnName="FK_id_idRestaurant" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductOrderDetails">
+            <EntityTypeMapping TypeName="GestionHosteleriaGenNHibernateModel1.ProductOrderDetail">
+              <MappingFragment StoreEntitySet="ProductOrderDetail">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="FK_id_idProduct" ColumnName="FK_id_idProduct" />
+                <ScalarProperty Name="FK_id_idOrders" ColumnName="FK_id_idOrders" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Restaurants">
+            <EntityTypeMapping TypeName="GestionHosteleriaGenNHibernateModel1.Restaurant">
+              <MappingFragment StoreEntitySet="Restaurant">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="address" ColumnName="address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TableTbls">
+            <EntityTypeMapping TypeName="GestionHosteleriaGenNHibernateModel1.TableTbl">
+              <MappingFragment StoreEntitySet="TableTbl">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="isAvailable" ColumnName="isAvailable" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="capacity" ColumnName="capacity" />
+                <ScalarProperty Name="FK_id_idRestaurant" ColumnName="FK_id_idRestaurant" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="GestionHosteleriaGenNHibernateModel1.AspNetRole">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="ConcurrencyStamp" ColumnName="ConcurrencyStamp" />
+                <ScalarProperty Name="NormalizedName" ColumnName="NormalizedName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="GestionHosteleriaGenNHibernateModel1.AspNetUserClaim">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="GestionHosteleriaGenNHibernateModel1.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEnd" ColumnName="LockoutEnd" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="ConcurrencyStamp" ColumnName="ConcurrencyStamp" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="NormalizedEmail" ColumnName="NormalizedEmail" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="NormalizedUserName" ColumnName="NormalizedUserName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
