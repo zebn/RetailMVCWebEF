@@ -166,7 +166,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\BooksController.cs" />
+    <Compile Include="Controllers\BackofficeController.cs" />
     <Compile Include="Controllers\TPVController.cs" />
     <Compile Include="Models\BL\CategoryRepository.cs" />
     <Compile Include="Models\BL\ProductOrderDetailRepository.cs" />
@@ -227,6 +228,8 @@
     <Compile Include="Models\ML\ProductOrderDetail.cs">
       <DependentUpon>IdentityModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="OrderTblsController.cs" />
+    <Compile Include="ProductsController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\ML\Restaurant.cs">
       <DependentUpon>IdentityModel.tt</DependentUpon>
@@ -236,6 +239,7 @@
     <Compile Include="Models\ML\TableTbl.cs">
       <DependentUpon>IdentityModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="TableTblsController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-grid.css" />
@@ -317,9 +321,29 @@
     <Content Include="Views\ComponentesTPV\Product.cshtml" />
     <Content Include="Views\TPV\Index.cshtml" />
     <Content Include="Views\ComponentesTPV\TableOrder.cshtml" />
-    <Content Include="Views\Product\Index.cshtml" />
-    <Content Include="Views\Product\Create.cshtml" />
-    <Content Include="Views\Product\Details.cshtml" />
+    <Content Include="Views\Books\Create.cshtml" />
+    <Content Include="Views\Books\Delete.cshtml" />
+    <Content Include="Views\Books\Details.cshtml" />
+    <Content Include="Views\Books\Edit.cshtml" />
+    <Content Include="Views\Books\Index.cshtml" />
+    <Content Include="Views\Shared\_LeftMenu.cshtml" />
+    <Content Include="Views\Backoffice\Index.cshtml" />
+    <Content Include="Views\Shared\_RightBox.cshtml" />
+    <Content Include="Views\Products\Create.cshtml" />
+    <Content Include="Views\Products\Delete.cshtml" />
+    <Content Include="Views\Products\Details.cshtml" />
+    <Content Include="Views\Products\Edit.cshtml" />
+    <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\TableTbls\Create.cshtml" />
+    <Content Include="Views\TableTbls\Delete.cshtml" />
+    <Content Include="Views\TableTbls\Details.cshtml" />
+    <Content Include="Views\TableTbls\Edit.cshtml" />
+    <Content Include="Views\TableTbls\Index.cshtml" />
+    <Content Include="Views\OrderTbls\Create.cshtml" />
+    <Content Include="Views\OrderTbls\Delete.cshtml" />
+    <Content Include="Views\OrderTbls\Details.cshtml" />
+    <Content Include="Views\OrderTbls\Edit.cshtml" />
+    <Content Include="Views\OrderTbls\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

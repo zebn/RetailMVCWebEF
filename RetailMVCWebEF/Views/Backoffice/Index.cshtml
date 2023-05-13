@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "BackOffice";
+}
+
+<body>
+    <header>
+    </header>
+    @Html.ActionLink("Load Partial Action Link", null, null, null, new { id = "loadPartialActionLink" })
+    <div id="AJAXContainer"></div>
+
+
+</body>
+<script type="text/javascript">
+    $('#loadPartialActionLink').on('click', function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: "GET",
+            url: '/Books/Index',
+            success: function (data, textStatus, jqXHR) {
+                $('#AJAXContainer').html(data);
+            }
+        });
+    });
+</script>

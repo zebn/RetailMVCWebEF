@@ -21,6 +21,7 @@ using RetailMVCWebEF.App_Start;
 using System.Net.Http;
 using static System.Net.Mime.MediaTypeNames;
 using RetailMVCWebEF.Models.BL;
+using System.Security.Principal;
 
 namespace RetailMVCWebEF.Controllers
 {
@@ -167,7 +168,19 @@ namespace RetailMVCWebEF.Controllers
             }
         }
 
-      
+        //
+        // POST: /Account/LogOff
+
+        public ActionResult Logout()
+        {
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            HttpContext.User = new GenericPrincipal(new GenericIdentity(string.Empty), null);
+            Session.Abandon();
+            Session.Clear();
+            return RedirectToAction("Login", "Account");
+        }
+        //
+        // GET: /Account/ExternalLoginFailure
 
         // GET: Account/Create
         public ActionResult Create()

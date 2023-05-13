@@ -1,64 +1,90 @@
-﻿@using RetailMVCWebEF.Models.VL;
-@model ProductViewModel
+﻿@model RetailMVCWebEF.Models.ML.Product
 
-<h2>Product Details</h2>
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
 
 <div>
-    <h4>ProductViewModel</h4>
+    <h4>Product</h4>
     <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
+    <dl class="dl-horizontal">
+        <dt>
             @Html.DisplayNameFor(model => model.name)
         </dt>
-        <dd class="col-sm-10">
+
+        <dd>
             @Html.DisplayFor(model => model.name)
         </dd>
-        <dt class="col-sm-2">
+
+        <dt>
             @Html.DisplayNameFor(model => model.isActive)
         </dt>
-        <dd class="col-sm-10">
+
+        <dd>
             @Html.DisplayFor(model => model.isActive)
         </dd>
-        <dt class="col-sm-2">
+
+        <dt>
             @Html.DisplayNameFor(model => model.description)
         </dt>
-        <dd class="col-sm-10">
+
+        <dd>
             @Html.DisplayFor(model => model.description)
         </dd>
-        <dt class="col-sm-2">
+
+        <dt>
             @Html.DisplayNameFor(model => model.allergens)
         </dt>
-        <dd class="col-sm-10">
+
+        <dd>
             @Html.DisplayFor(model => model.allergens)
         </dd>
-        <dt class="col-sm-2">
+
+        <dt>
             @Html.DisplayNameFor(model => model.nutritionFacts)
         </dt>
-        <dd class="col-sm-10">
+
+        <dd>
             @Html.DisplayFor(model => model.nutritionFacts)
         </dd>
-        <dt class="col-sm-2">
+
+        <dt>
             @Html.DisplayNameFor(model => model.price)
         </dt>
-        <dd class="col-sm-10">
+
+        <dd>
             @Html.DisplayFor(model => model.price)
         </dd>
-        <dt class="col-sm-2">
+
+        <dt>
             @Html.DisplayNameFor(model => model.imageUrl)
         </dt>
-        <dd class="col-sm-10">
-            <img src="@Model.imageUrl" alt="@Model.name" style="max-height: 200px" />
+
+        <dd>
+            @Html.DisplayFor(model => model.imageUrl)
         </dd>
-        <dt class="col-sm-2">
+
+        <dt>
             @Html.DisplayNameFor(model => model.code)
         </dt>
-        <dd class="col-sm-10">
+
+        <dd>
             @Html.DisplayFor(model => model.code)
         </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Restaurant.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Restaurant.name)
+        </dd>
+
     </dl>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
-
