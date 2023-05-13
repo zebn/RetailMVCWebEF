@@ -13,13 +13,8 @@
 	width: 150px;
 	height: 150px;
 	overflow: hidden;
-	border-radius: 50 %;
+	border-radius: 50%;
 }
-
-	.imagen img {
-		width: 100 %;
-		height: auto;
-	}
 
 .numero {
 	display: flex;
