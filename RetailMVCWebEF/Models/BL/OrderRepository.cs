@@ -34,7 +34,7 @@ namespace RetailMVCWebEF.Models.BL
                 creationTime = c.creationTime,
                 FK_id_idTable = c.FK_id_idTable,
                 FK_id_idRestaurant = restaurantId
-            })/*.Where(c=>c.FK_id_idRestaurant == restaurantId)*/.OrderBy(c => c.creationTime).ToList();
+            }).Where(c => c.isActive == true).OrderBy(c => c.creationTime).ToList();
             Orders = Orders == null ? new List<OrderViewModel>() : Orders;
 
            // Orders = Orders.Where(c => tableId == -1 || c.FK_id_idTable == tableId).ToList();

@@ -55,6 +55,46 @@ namespace RetailMVCWebEF.Controllers
             return View("Index");
         }
 
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CloseOrder(int orderId, int restaurantId)
+        {
+            ////Crea el objeto OrdenMesa
+            //OrderTbl orderTbl = new OrderTbl();
+            //orderTbl.FK_id_idTable = tableId;
+            //orderTbl.FK_id_idRestaurant = restaurantId;
+            //orderTbl.isPaid = false;
+            //orderTbl.isActive = true;
+            //orderTbl.creationTime = DateTime.Now;
+            //orderTbl.total = 0;
+
+            ////Inserta el objeto OrdenMesa
+            //db.OrderTbls.Add(orderTbl);
+
+            OrderTbl orderTbl = db.OrderTbls.Find(orderId);
+
+            orderTbl.isActive=false;
+            orderTbl.isPaid = true;
+
+            db.OrderTbls.Attach(orderTbl);
+
+            
+
+            db.Entry(orderTbl).State = EntityState.Modified;
+            db.SaveChanges();
+
+            //db.SaveChanges();
+
+            ViewBagTables();
+            ViewBagCategories();
+            ViewBagProducts("", restaurantId);
+            ViewBagOrders(restaurantId/*, tableId*/);
+
+
+            return View("Index");
+        }
+
         void ViewBagTables()
         {
             ViewBag.TablesTPV = null;
@@ -82,7 +122,7 @@ namespace RetailMVCWebEF.Controllers
         void ViewBagOrders(int restaurantId = 1/*,int table = -1*/)
         {
             ViewBag.OrdersTPV = null;
-            ViewBag.OrdersTPV = OrderRepository.ViewModelListSet(restaurantId/*, table*/).ToList();
+            ViewBag.OrdersTPV = OrderRepository.ViewModelListSet(restaurantId).ToList();
 
 
         }

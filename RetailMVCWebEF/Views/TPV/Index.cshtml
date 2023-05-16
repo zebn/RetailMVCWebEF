@@ -62,7 +62,6 @@
     .input-group .input-group-append {
         margin-left: -1px;
     }
-
 </style>
 
 
@@ -100,41 +99,58 @@
                                     @{
                                         double totalPriceOrder = 0;
                                     }
-                            @for (int j = 0; j < OrdersTPV.ElementAt(i).ProductOrderDetails.Count; j++)
-                            {
+                                    @for (int j = 0; j < OrdersTPV.ElementAt(i).ProductOrderDetails.Count; j++)
+                                    {
 
-                                ProductOrderDetailViewModel currentOrderDetail = OrdersTPV.ElementAt(i).ProductOrderDetails.ElementAt(j);
-                                double productOrderTotalPrice = currentOrderDetail.quantity * currentOrderDetail.Product.price;
-                                totalPriceOrder += productOrderTotalPrice;
-                                                                    <tr>
-                                                <td>@currentOrderDetail.Product.name</td>
-                                                <td>@currentOrderDetail.quantity</td>
-                                                <td>@currentOrderDetail.Product.price</td>
-                                                <td>$@productOrderTotalPrice</td>
-
-                                            </tr>
-                                        }
-
-                                    </tbody>
-                                    <tfoot>
+                                        ProductOrderDetailViewModel currentOrderDetail = OrdersTPV.ElementAt(i).ProductOrderDetails.ElementAt(j);
+                                        double productOrderTotalPrice = currentOrderDetail.quantity * currentOrderDetail.Product.price;
+                                        totalPriceOrder += productOrderTotalPrice;
                                         <tr>
-                                            <td colspan="3">Total:</td>
-                                            <td>$@totalPriceOrder</td>
+                                            <td>@currentOrderDetail.Product.name</td>
+                                            <td>@currentOrderDetail.quantity</td>
+                                            <td>@currentOrderDetail.Product.price</td>
+                                            <td>$@productOrderTotalPrice</td>
+
                                         </tr>
-                                    </tfoot>
-                                    
-                                </table>
+                                    }
+
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="3">Total:</td>
+                                        <td>$@totalPriceOrder</td>
+                                    </tr>
+                                </tfoot>
+
+                            </table>
                             <br>
 
-                            <button type="button" class="btn btn-outline-success">Cerrar Orden</button>
+
+                            @using (Html.BeginForm("CloseOrder", "TPV", new { orderId = @OrdersTPV.ElementAt(i).id, restaurantId=1 }, FormMethod.Post))
+                            {
+                                @Html.AntiForgeryToken()
+
+
+                                var currentOrderId = OrdersTPV.ElementAt(i).id;
+                                @*@Html.Hidden("orderId", currentOrderId)
+                                @Html.Hidden("restaurantId", 1)*@
+
+                                <input type="submit" class="btn btn-primary" value="Pagar Orden № @currentOrderId" />
+
+
+                            }
+
+
+
+
                         </div>
                     </div>
-                    </div>
+                </div>
             }
 
 
 
-                </div>
+        </div>
 
         <div class="col-md-1"> <hr class="vertical-divider"> </div>
         <div class="col-md-8">
@@ -151,8 +167,8 @@
                                 @Html.Hidden("tableId", table.id)
                                 @Html.Hidden("restaurantId", 1)
 
-                                <div id="miDiv">
-                                    <input type="submit" value="@table.code" />
+                                <div id="miDiv" >
+                                    <input type="submit" class="btn btn-light" value="@table.id" />
                                 </div>
                             }
                         </div>
@@ -161,7 +177,7 @@
                     @*@Html.Partial("~/Views/ComponentesTPV/TableOrder.cshtml", table)*@
 
 
-                    
+
                 </div>
             </div>
 
@@ -180,7 +196,7 @@
                     @using (Html.BeginForm("Index", "TPV", FormMethod.Get))
                     {
                         <div class="input-group me-lg-4">
-                            <input class="form-control " type="search" id="searchProductByCodeOrName" name="searchProductByCodeOrName" placeholder="Nombre o codigo..." >
+                            <input class="form-control " type="search" id="searchProductByCodeOrName" name="searchProductByCodeOrName" placeholder="Nombre o codigo...">
                             <div class="input-group-append">
                                 <button type="submit" class="btn btn-outline-secondary" type="button">Buscar</button>
                             </div>
