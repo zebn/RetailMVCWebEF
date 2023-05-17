@@ -6,6 +6,7 @@
 
     List<TableViewModel> TablesTPV = ViewBag.TablesTPV as List<TableViewModel>;
     List<OrderViewModel> OrdersTPV = ViewBag.OrdersTPV as List<OrderViewModel>;
+    int currentTable = ViewBag.currentTable;
 }
 <style>
     .rectangulo {
@@ -70,84 +71,102 @@
     <div class="row">
         <div class="col-md-3">
 
-
-            @for (int i = 0; i < OrdersTPV.Count; i++)
+            @if (OrdersTPV.Count != 0)
             {
-                string card = "collapseOne" + i;
-                <div id="accordion">
-                    <div class="card">
-                        <div class="card-header" id="headingOne">
-                            <h5 class="mb-0">
-                                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="@card">
-                                    Mesa @OrdersTPV.ElementAt(i).TableTbl.code
-                                </button>
-                            </h5>
+
+                for (int i = 0; i < OrdersTPV.Count; i++)
+                {
+                    string card = "collapseOne" + i;
+                    <div id="accordion">
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="@card">
+                                        Mesa @OrdersTPV.ElementAt(i).TableTbl.code
+                                    </button>
+                                </h5>
+                            </div>
                         </div>
-                    </div>
-                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                        <div class="card-body">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Producto</th>
-                                        <th>Cantidad</th>
-                                        <th>Precio</th>
-                                        <th>Total</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @{
-                                        double totalPriceOrder = 0;
-                                    }
-                                    @for (int j = 0; j < OrdersTPV.ElementAt(i).ProductOrderDetails.Count; j++)
-                                    {
-
-                                        ProductOrderDetailViewModel currentOrderDetail = OrdersTPV.ElementAt(i).ProductOrderDetails.ElementAt(j);
-                                        double productOrderTotalPrice = currentOrderDetail.quantity * currentOrderDetail.Product.price;
-                                        totalPriceOrder += productOrderTotalPrice;
+                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                            <div class="card-body">
+                                <table>
+                                    <thead>
                                         <tr>
-                                            <td>@currentOrderDetail.Product.name</td>
-                                            <td>@currentOrderDetail.quantity</td>
-                                            <td>@currentOrderDetail.Product.price</td>
-                                            <td>$@productOrderTotalPrice</td>
-
+                                            <th>Producto</th>
+                                            <th>Cantidad</th>
+                                            <th>Precio</th>
+                                            <th>Total</th>
                                         </tr>
-                                    }
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            double totalPriceOrder = 0;
+                                        }
+                                        @for (int j = 0; j < OrdersTPV.ElementAt(i).ProductOrderDetails.Count; j++)
+                                        {
 
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td colspan="3">Total:</td>
-                                        <td>$@totalPriceOrder</td>
-                                    </tr>
-                                </tfoot>
+                                            ProductOrderDetailViewModel currentOrderDetail = OrdersTPV.ElementAt(i).ProductOrderDetails.ElementAt(j);
+                                            double productOrderTotalPrice = currentOrderDetail.quantity * currentOrderDetail.Product.price;
+                                            totalPriceOrder += productOrderTotalPrice;
+                                            <tr>
+                                                <td>@currentOrderDetail.Product.name</td>
+                                                <td>@currentOrderDetail.quantity</td>
+                                                <td>@currentOrderDetail.Product.price</td>
+                                                <td>$@productOrderTotalPrice</td>
 
-                            </table>
-                            <br>
+                                            </tr>
+                                        }
+
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="3">Total:</td>
+                                            <td>$@totalPriceOrder</td>
+                                        </tr>
+                                    </tfoot>
+
+                                </table>
+                                <br>
 
 
-                            @using (Html.BeginForm("CloseOrder", "TPV", new { orderId = @OrdersTPV.ElementAt(i).id, restaurantId=1 }, FormMethod.Post))
-                            {
-                                @Html.AntiForgeryToken()
+                                @using (Html.BeginForm("CloseOrder", "TPV", new { orderId = @OrdersTPV.ElementAt(i).id, restaurantId = 1 }, FormMethod.Post))
+                                {
+                                    @Html.AntiForgeryToken()
 
 
-                                var currentOrderId = OrdersTPV.ElementAt(i).id;
-                                @*@Html.Hidden("orderId", currentOrderId)
+                                    var currentOrderId = OrdersTPV.ElementAt(i).id;
+                                    @*@Html.Hidden("orderId", currentOrderId)
                                 @Html.Hidden("restaurantId", 1)*@
 
-                                <input type="submit" class="btn btn-primary" value="Pagar Orden № @currentOrderId" />
+                                    <input type="submit" class="btn btn-primary" value="Pagar Orden № @currentOrderId" />
 
 
-                            }
+                                }
 
 
 
 
+                            </div>
                         </div>
                     </div>
+                }
+            }
+            else
+            {
+                <div class="col-sm text-center border">
+                    @using (Html.BeginForm("AbrirOrdenEnMesa", "TPV", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        @Html.Hidden("tableId", currentTable)
+                        @Html.Hidden("restaurantId", 1)
+
+                        <div id="miDiv">
+                            <input type="submit" class="btn btn-light" value="Abrir orden on mesa @currentTable" />
+                        </div>
+                    }
                 </div>
             }
-
 
 
         </div>
@@ -159,15 +178,15 @@
                     <div class="col-sm-2"><h5>Mesa</h5></div>
                     @foreach (var table in TablesTPV)
                     {
+                       
+
                         <div class="col-sm text-center border">
-                            @using (Html.BeginForm("AbrirOrdenEnMesa", "TPV", FormMethod.Post))
+                            @using (Html.BeginForm("ViewOrdersForTable", "TPV", new { tableId = table.id, restaurantId = 1 }, FormMethod.Post))
                             {
                                 @Html.AntiForgeryToken()
 
-                                @Html.Hidden("tableId", table.id)
-                                @Html.Hidden("restaurantId", 1)
 
-                                <div id="miDiv" >
+                                <div id="miDiv">
                                     <input type="submit" class="btn btn-light" value="@table.id" />
                                 </div>
                             }

@@ -28,14 +28,15 @@
                                 BackOffice
                             </a>
                             <ul class="dropdown-menu">
-                                <li>@Html.ActionLink("Bookings", "Index", "Books", new { area = "" }, new { @class = "dropdown-item" })</li>
-                                <li>@Html.ActionLink("Products", "Index", "Products", new { area = "" }, new { @class = "dropdown-item" })</li>
-                                <li>@Html.ActionLink("Tables", "Index", "TableTbls", new { area = "" }, new { @class = "dropdown-item" })</li>
-                                <li>@Html.ActionLink("Orders", "Index", "OrderTbls", new { area = "" }, new { @class = "dropdown-item" })</li>
+                                <li>@Html.ActionLink("Productos", "Index", "Products", new { area = "" }, new { @class = "dropdown-item" })</li>
+                                <li>@Html.ActionLink("Mesas", "Index", "TableTbls", new { area = "" }, new { @class = "dropdown-item" })</li>
+                                <li>@Html.ActionLink("Orderes", "Index", "OrderTbls", new { area = "" }, new { @class = "dropdown-item" })</li>
+                                <li>@Html.ActionLink("Reservas", "Index", "Books", new { area = "" }, new { @class = "dropdown-item" })</li>
+                                <li>@Html.ActionLink("Añadir camarero", "Create", "Account", new { area = "" }, new { @class = "dropdown-item" })</li>
                             </ul>
                         </li>
 
-
+                        <li class="nav-item">@Html.ActionLink("Reservas", "Index", "Books", new { area = "" }, new { @class = "nav-link" })</li>
 
 
                     </ul>

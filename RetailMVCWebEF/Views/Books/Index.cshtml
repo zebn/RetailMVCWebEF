@@ -1,33 +1,33 @@
 ﻿@model IEnumerable<RetailMVCWebEF.Models.ML.Book>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Reservas de restaurante";
 }
 
-<h2>Index</h2>
+<h2>Reservas de restaurante</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Crear reserva", "Create", new { area = "" }, new { @class = "btn btn-secondary" })
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.clientNumber)
+            Numero de Cliente
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.name)
+            Nombre de Cliente
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.phone)
+            Telefono de Cliente
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.time)
+            Fecha de Reserva
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Restaurant.name)
+            Restaurante
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TableTbl.id)
+            Mesa Reservada
         </th>
         <th></th>
     </tr>
@@ -53,9 +53,9 @@
             @Html.DisplayFor(modelItem => item.TableTbl.id)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.idBook }) |
-            @Html.ActionLink("Details", "Details", new { id=item.idBook }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.idBook })
+            @Html.ActionLink("Edit", "Edit", new { id=item.idBook }, new { @class = "btn btn-secondary" }) |
+            @Html.ActionLink("Details", "Details", new { id=item.idBook }, new { @class = "btn btn-secondary" }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.idBook }, new { @class = "btn btn-secondary" })
         </td>
     </tr>
 }

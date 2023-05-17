@@ -49,7 +49,22 @@ namespace RetailMVCWebEF.Controllers
             ViewBagTables();
             ViewBagCategories();
             ViewBagProducts("", restaurantId);
-            ViewBagOrders(restaurantId/*, tableId*/);
+            ViewBagOrders(restaurantId, tableId);
+
+
+            return View("Index");
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ViewOrdersForTable(int tableId, int restaurantId)
+        {
+           
+            ViewBagTables();
+            ViewBagCategories();
+            ViewBagProducts("", restaurantId);
+            ViewBagOrders(restaurantId, tableId);
 
 
             return View("Index");
@@ -89,7 +104,7 @@ namespace RetailMVCWebEF.Controllers
             ViewBagTables();
             ViewBagCategories();
             ViewBagProducts("", restaurantId);
-            ViewBagOrders(restaurantId/*, tableId*/);
+            ViewBagOrders(restaurantId, orderTbl.FK_id_idTable.Value);
 
 
             return View("Index");
@@ -119,10 +134,11 @@ namespace RetailMVCWebEF.Controllers
             ViewBag.CategoriesTPV = enumList;
         }
 
-        void ViewBagOrders(int restaurantId = 1/*,int table = -1*/)
+        void ViewBagOrders(int restaurantId = 1, int table = -1)
         {
+            ViewBag.currentTable = table;
             ViewBag.OrdersTPV = null;
-            ViewBag.OrdersTPV = OrderRepository.ViewModelListSet(restaurantId).ToList();
+            ViewBag.OrdersTPV = OrderRepository.ViewModelListSet(restaurantId, table).ToList();
 
 
         }

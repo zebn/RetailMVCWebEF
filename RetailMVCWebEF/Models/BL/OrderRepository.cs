@@ -23,7 +23,7 @@ namespace RetailMVCWebEF.Models.BL
                 return null;
         }
 
-        public static List<OrderViewModel> ViewModelListSet(int restaurantId = 1/*, int tableId = -1*/)
+        public static List<OrderViewModel> ViewModelListSet(int restaurantId = 1, int tableId = 1)
         {
             ML.GestionHosteleriaGenNHibernateEntities1 DB = new ML.GestionHosteleriaGenNHibernateEntities1();
             List<OrderViewModel> Orders = DB.OrderTbls.Select(c => new OrderViewModel()
@@ -37,7 +37,7 @@ namespace RetailMVCWebEF.Models.BL
             }).Where(c => c.isActive == true).OrderBy(c => c.creationTime).ToList();
             Orders = Orders == null ? new List<OrderViewModel>() : Orders;
 
-           // Orders = Orders.Where(c => tableId == -1 || c.FK_id_idTable == tableId).ToList();
+            Orders = Orders.Where(c => tableId == -1 || c.FK_id_idTable == tableId).ToList();
 
             for (int i = 0; i < Orders.Count(); i++)
             {

@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<RetailMVCWebEF.Models.ML.OrderTbl>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Orderes";
 }
 
-<h2>Index</h2>
+<h2>Orderes</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", new { area = "" }, new { @class = "btn btn-secondary" })
 </p>
 <table class="table">
     <tr>
