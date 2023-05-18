@@ -99,13 +99,20 @@ namespace RetailMVCWebEF.Controllers
             }
             else
             {
-          
                 ProductOrderDetail entryML = db.ProductOrderDetails.Find(entry.id);
-                entryML.quantity = entryML.quantity + quantity;
-                
-                db.ProductOrderDetails.Attach(entryML);
-                db.Entry(entryML).State = EntityState.Modified;
-                db.SaveChanges();
+                if ((entryML.quantity + quantity) == 0)
+                {
+                    db.ProductOrderDetails.Remove (entryML);
+                    db.Entry(entryML).State = EntityState.Deleted;
+                    db.SaveChanges();
+                }
+                else
+                {
+                    entryML.quantity = entryML.quantity + quantity;
+                    db.ProductOrderDetails.Attach(entryML);
+                    db.Entry(entryML).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
             }
 
             /*var order = OrderRepository.ViewModelFind(orderId);
@@ -135,18 +142,6 @@ namespace RetailMVCWebEF.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CloseOrder(int orderId, int restaurantId)
         {
-            ////Crea el objeto OrdenMesa
-            //OrderTbl orderTbl = new OrderTbl();
-            //orderTbl.FK_id_idTable = tableId;
-            //orderTbl.FK_id_idRestaurant = restaurantId;
-            //orderTbl.isPaid = false;
-            //orderTbl.isActive = true;
-            //orderTbl.creationTime = DateTime.Now;
-            //orderTbl.total = 0;
-
-            ////Inserta el objeto OrdenMesa
-            //db.OrderTbls.Add(orderTbl);
-
             OrderTbl orderTbl = db.OrderTbls.Find(orderId);
 
             orderTbl.isActive=false;

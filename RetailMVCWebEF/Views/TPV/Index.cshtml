@@ -264,7 +264,8 @@
                         @Html.Partial("~/Views/ComponentesTPV/Product.cshtml", item, new ViewDataDictionary
                         {
                             {"currentOrderId", ViewBag.currentOrderId},
-                            {"currentTableId", ViewBag.currentTableId}
+                            {"currentTableId", ViewBag.currentTableId},
+                            {"OrdersTPV", ViewBag.OrdersTPV}
                         });
                         
                         @*@Html.Partial("~/Views/ComponentesTPV/Product.cshtml", new ViewDataDictionary {{"parent", "item"},

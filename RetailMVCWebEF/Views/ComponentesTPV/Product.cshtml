@@ -6,6 +6,8 @@
     var currentTableId = ViewData["currentTableId"].ToString();
 
     int quantity = 0;
+
+    List<OrderViewModel> OrdersTPV = ViewData["OrdersTPV"] as List<OrderViewModel>;
 }
 
 
@@ -13,41 +15,69 @@
 
 <div class="col-sm">
     <h5>@Model.name</h5>
-    <div >
+    <div>
         <img class="imagen" src="~/content/images/@Model.imageUrl" />
     </div>
     @*<div class="numero">
-        <span class="minus">-</span>
-        <span class="valor">@quantity</span>
-        <span class="plus">+</span>
-    </div>*@
-    
-    @using (Html.BeginForm("addEntry", "TPV" , new
-    {
-        tableId = currentTableId, orderId = @currentOrderId,
-        quantity = quantity + 1, productId = @Model.id
-    }, FormMethod.Post, new {id = "quantityForm"}))
-    {
-        @Html.AntiForgeryToken()
+            <span class="minus">-</span>
+            <span class="valor">@quantity</span>
+            <span class="plus">+</span>
+        </div>*@
 
-        <div id="miDiv" >
-            <input type="submit" />
-        </div>
-    }
-    
-    @using (Html.BeginForm("addEntry", "TPV" , new
-        {
-            tableId = currentTableId, orderId = @currentOrderId,
-            quantity = quantity - 1, productId = @Model.id
-        }, FormMethod.Post, new {id = "quantityForm"}))
-        {
-            @Html.AntiForgeryToken()
-    
-            <div id="miDiv" >
-                <input type="submit" />
+    @if (OrdersTPV.Count > 0)
+    {
+
+        <div class="numero">
+
+
+
+            @using (Html.BeginForm("addEntry", "TPV", new
+            {
+                tableId = currentTableId,
+                orderId = @currentOrderId,
+                quantity = quantity + 1,
+                productId = @Model.id
+            }
+
+            , FormMethod.Post, new { id = "quantityForm" }))
+            {
+                @Html.AntiForgeryToken()
+
+
+                <input class="btn btn-success plus" type="submit" value="+" />
+
+            }
+
+            <span class="valor">&nbsp;</span>
+
+
+            @if (OrdersTPV[0].ProductOrderDetails!=null)
+            {
+                if (OrdersTPV[0].ProductOrderDetails.FirstOrDefault(s => s.Product.id == Model.id) != null)
+                {
+
+                    using (Html.BeginForm("addEntry", "TPV", new
+                    {
+                        tableId = currentTableId,
+                        orderId = @currentOrderId,
+                        quantity = quantity - 1,
+                        productId = @Model.id
+                    }
+                    , FormMethod.Post, new { id = "quantityForm" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+
+                        <input class="btn btn-success minus" type="submit" value="-" />
+
+                    }
+
+                }
+            }
+
             </div>
-        }
-</div>
+    }
+    </div>
 
 
 @*<script>
