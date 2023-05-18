@@ -1,4 +1,5 @@
-﻿@using RetailMVCWebEF.Models.VL
+﻿@using System.Activities.Statements
+@using RetailMVCWebEF.Models.VL
 @{
     ViewBag.Title = "Index";
     List<ProductViewModel> ProductsTPV = ViewBag.ProductsTPV as List<ProductViewModel>;
@@ -6,7 +7,9 @@
 
     List<TableViewModel> TablesTPV = ViewBag.TablesTPV as List<TableViewModel>;
     List<OrderViewModel> OrdersTPV = ViewBag.OrdersTPV as List<OrderViewModel>;
+    ViewBag.currentOrderId = 1;
     int currentTable = ViewBag.currentTable;
+
 }
 <style>
     .rectangulo {
@@ -63,6 +66,28 @@
     .input-group .input-group-append {
         margin-left: -1px;
     }
+    
+    .btn-table {
+        width: 100%;
+        background: gray;
+    }
+    
+    .current {
+        background: lightblue;
+    }
+    
+    .order-list {
+        width: 100%;
+    }
+    
+    .order-card{ 
+        border-radius: 25px;
+        background: gray;
+        padding: 20px;
+        width: 100%;
+    }
+    
+   
 </style>
 
 
@@ -78,15 +103,19 @@
                 {
                     string card = "collapseOne" + i;
                     <div id="accordion">
-                        <div class="card">
-                            <div class="card-header" id="headingOne">
-                                <h5 class="mb-0">
-                                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="@card">
-                                        Mesa @OrdersTPV.ElementAt(i).TableTbl.code
-                                    </button>
-                                </h5>
-                            </div>
+                    <div class="card">
+                          <div class="card-header  @(OrdersTPV.ElementAt(i).isCurrent ? "current" : "")" id="headingOne ">
+                                                    @if (true)
+                                                    {
+                                                        ViewBag.currentOrderId = OrdersTPV.ElementAt(i).id;
+                                                    }
+                            <h5 class="mb-0">
+                                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="@card">
+                                    Mesa @OrdersTPV.ElementAt(i).TableTbl.code
+                                </button>
+                            </h5>
                         </div>
+                    </div>
                         <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                             <div class="card-body">
                                 <table>
@@ -102,8 +131,10 @@
                                         @{
                                             double totalPriceOrder = 0;
                                         }
-                                        @for (int j = 0; j < OrdersTPV.ElementAt(i).ProductOrderDetails.Count; j++)
-                                        {
+                                  
+          
+                                    @for (int j = 0; j < OrdersTPV.ElementAt(i).ProductOrderDetails.Count; j++)
+                                    {
 
                                             ProductOrderDetailViewModel currentOrderDetail = OrdersTPV.ElementAt(i).ProductOrderDetails.ElementAt(j);
                                             double productOrderTotalPrice = currentOrderDetail.quantity * currentOrderDetail.Product.price;
@@ -138,12 +169,10 @@
                                     @*@Html.Hidden("orderId", currentOrderId)
                                 @Html.Hidden("restaurantId", 1)*@
 
-                                    <input type="submit" class="btn btn-primary" value="Pagar Orden № @currentOrderId" />
 
+                                <input type="submit" class="btn btn-primary order-list" value="Pagar Orden № @currentOrderId" />
 
                                 }
-
-
 
 
                             </div>
@@ -169,6 +198,7 @@
             }
 
 
+
         </div>
 
         <div class="col-md-1"> <hr class="vertical-divider"> </div>
@@ -178,36 +208,38 @@
                     <div class="col-sm-2"><h5>Mesa</h5></div>
                     @foreach (var table in TablesTPV)
                     {
-                       
-
                         <div class="col-sm text-center border">
+                            
+ 
+                            
                             @using (Html.BeginForm("ViewOrdersForTable", "TPV", new { tableId = table.id, restaurantId = 1 }, FormMethod.Post))
                             {
                                 @Html.AntiForgeryToken()
 
-
-                                <div id="miDiv">
-                                    <input type="submit" class="btn btn-light" value="@table.id" />
+                                <div id="miDiv" >
+                                    <input type="submit" class="btn btn-light btn-table @(table.isActive ? "current" : "")" value="@table.id" />
                                 </div>
+                                if (@table.isActive)
+                                {
+                                    ViewBag.currentTableId = @table.id;
+                                }
                             }
                         </div>
                     }
 
                     @*@Html.Partial("~/Views/ComponentesTPV/TableOrder.cshtml", table)*@
 
-
-
                 </div>
             </div>
 
-            <br>
+            @*<br>
             <div class="row">
                 @for (int i = 0; i < CategoriesTPV.Count; i++)
                 {
                     <div class="col-sm rectangulo"><h5>@CategoriesTPV.ElementAt(i).Text</h5></div>
                 }
 
-            </div>
+            </div>*@
             <br>
 
             <nav class="navbar navbar-light bg-light justify-content-between">
@@ -229,7 +261,14 @@
                 <div class="row">
                     @foreach (var item in ProductsTPV)
                     {
-                        @Html.Partial("~/Views/ComponentesTPV/Product.cshtml", item)
+                        @Html.Partial("~/Views/ComponentesTPV/Product.cshtml", item, new ViewDataDictionary
+                        {
+                            {"currentOrderId", ViewBag.currentOrderId},
+                            {"currentTableId", ViewBag.currentTableId}
+                        });
+                        
+                        @*@Html.Partial("~/Views/ComponentesTPV/Product.cshtml", new ViewDataDictionary {{"parent", "item"},
+                            {"value",item}, {"parent", "orders"}, {"value", OrdersTPV}});*@
                     }
 
                 </div>
@@ -239,5 +278,6 @@
 
     </div>
 </div>
+
 
 

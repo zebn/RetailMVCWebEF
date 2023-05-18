@@ -20,7 +20,7 @@ namespace RetailMVCWebEF.Models.BL
                 return null;
         }
 
-        public static IQueryable<ProductOrderDetailViewModel> ViewModelListSet(int orderId= 1)
+        public static IQueryable<ProductOrderDetailViewModel> ViewModelListSet(int orderId)
         {
             ML.GestionHosteleriaGenNHibernateEntities1 DB = new ML.GestionHosteleriaGenNHibernateEntities1();
             var ProductOrderDetails = DB.ProductOrderDetails.Select(c => new ProductOrderDetailViewModel()
@@ -32,6 +32,7 @@ namespace RetailMVCWebEF.Models.BL
             }).Where(c=>c.FK_id_idOrders == orderId);
             return ProductOrderDetails;
         }
+        
 
     }
 }

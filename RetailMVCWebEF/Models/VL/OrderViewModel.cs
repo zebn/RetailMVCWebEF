@@ -17,6 +17,7 @@ namespace RetailMVCWebEF.Models.VL
         public int id { get; set; }
         public System.DateTime creationTime { get; set; }
         public bool isActive { get; set; }
+        public bool isCurrent { get; set; }
         public double total { get; set; }
         public bool isPaid { get; set; }
         public Nullable<int> FK_id_idTable { get; set; }

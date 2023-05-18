@@ -1,8 +1,13 @@
-﻿
+﻿@using RetailMVCWebEF.Models.VL
+
 @model RetailMVCWebEF.Models.VL.ProductViewModel
 @{
-    Layout = null;
+    var currentOrderId = ViewData["currentOrderId"].ToString();
+    var currentTableId = ViewData["currentTableId"].ToString();
+
+    int quantity = 0;
 }
+
 
 <link href="~/Content/product.css" rel="stylesheet" type="text/css" />
 
@@ -11,21 +16,48 @@
     <div >
         <img class="imagen" src="~/content/images/@Model.imageUrl" />
     </div>
-    <div class="numero">
+    @*<div class="numero">
         <span class="minus">-</span>
-        <span class="valor">0</span>
+        <span class="valor">@quantity</span>
         <span class="plus">+</span>
-    </div>
+    </div>*@
+    
+    @using (Html.BeginForm("addEntry", "TPV" , new
+    {
+        tableId = currentTableId, orderId = @currentOrderId,
+        quantity = quantity + 1, productId = @Model.id
+    }, FormMethod.Post, new {id = "quantityForm"}))
+    {
+        @Html.AntiForgeryToken()
+
+        <div id="miDiv" >
+            <input type="submit" />
+        </div>
+    }
+    
+    @using (Html.BeginForm("addEntry", "TPV" , new
+        {
+            tableId = currentTableId, orderId = @currentOrderId,
+            quantity = quantity - 1, productId = @Model.id
+        }, FormMethod.Post, new {id = "quantityForm"}))
+        {
+            @Html.AntiForgeryToken()
+    
+            <div id="miDiv" >
+                <input type="submit" />
+            </div>
+        }
 </div>
 
 
-    <script>
+@*<script>
         $(document).ready(function() {
             $('.minus').click(function () {
                 let valor = parseInt($('.valor').text());
                 if (valor > 0) {
                     valor--;
                     $('.valor').text(valor);
+                    $('#quantity').val(valor);     
                 }
             });
 
@@ -33,8 +65,9 @@
             let valor = parseInt($('.valor').text());
         valor++;
         $('.valor').text(valor);
+        $('#quantity').val(valor);     
         });
     });
-</script>
+</script>*@
 
 

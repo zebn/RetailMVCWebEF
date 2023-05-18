@@ -15,6 +15,7 @@ namespace RetailMVCWebEF.Models.VL
         }
 
         public int id { get; set; }
+        public bool isActive { get; set; }
         public bool isAvailable { get; set; }
         public int code { get; set; }
         public int capacity { get; set; }
