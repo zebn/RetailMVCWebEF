@@ -44,14 +44,15 @@
                 @Html.AntiForgeryToken()
 
 
-                <input class="btn btn-success plus" type="submit" value="+" />
+                <button class="btn btn-success minus fa fa-plus" type="submit">
+                </button>
 
             }
 
             <span class="valor">&nbsp;</span>
 
 
-            @if (OrdersTPV[0].ProductOrderDetails!=null)
+            @if (OrdersTPV[0].ProductOrderDetails != null)
             {
                 if (OrdersTPV[0].ProductOrderDetails.FirstOrDefault(s => s.Product.id == Model.id) != null)
                 {
@@ -68,14 +69,16 @@
                         @Html.AntiForgeryToken()
 
 
-                        <input class="btn btn-success minus" type="submit" value="-" />
+                        <button class="btn btn-success minus fa fa-minus" type="submit">
+                        </button>
+
 
                     }
 
                 }
             }
 
-            </div>
+        </div>
     }
     </div>
 

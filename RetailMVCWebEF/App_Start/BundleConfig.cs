@@ -25,6 +25,11 @@ namespace RetailMVCWebEF
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+
+            bundles.Add(new Bundle("~/Content/fontawesome").Include(
+                      "~/Content/font-awesome.css"));
+
         }
     }
 }

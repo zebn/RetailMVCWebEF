@@ -110,9 +110,9 @@
                                                         ViewBag.currentOrderId = OrdersTPV.ElementAt(i).id;
                                                     }
                             <h5 class="mb-0">
-                                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="@card">
+                               
                                     Mesa @OrdersTPV.ElementAt(i).TableTbl.code
-                                </button>
+                               
                             </h5>
                         </div>
                     </div>
@@ -131,10 +131,10 @@
                                         @{
                                             double totalPriceOrder = 0;
                                         }
-                                  
-          
-                                    @for (int j = 0; j < OrdersTPV.ElementAt(i).ProductOrderDetails.Count; j++)
-                                    {
+
+
+                                        @for (int j = 0; j < OrdersTPV.ElementAt(i).ProductOrderDetails.Count; j++)
+                                        {
 
                                             ProductOrderDetailViewModel currentOrderDetail = OrdersTPV.ElementAt(i).ProductOrderDetails.ElementAt(j);
                                             double productOrderTotalPrice = currentOrderDetail.quantity * currentOrderDetail.Product.price;
@@ -167,10 +167,13 @@
 
                                     var currentOrderId = OrdersTPV.ElementAt(i).id;
                                     @*@Html.Hidden("orderId", currentOrderId)
-                                @Html.Hidden("restaurantId", 1)*@
+            @Html.Hidden("restaurantId", 1)*@
 
+                            <button class="btn btn-primary order-list fa fa-money" type="submit">
+                                Pagar Orden № @currentOrderId
+                            </button>
 
-                                <input type="submit" class="btn btn-primary order-list" value="Pagar Orden № @currentOrderId" />
+                               
 
                                 }
 
