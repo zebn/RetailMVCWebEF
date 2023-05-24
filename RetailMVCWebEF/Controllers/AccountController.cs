@@ -201,7 +201,7 @@ namespace RetailMVCWebEF.Controllers
             {
                 db.Entry(applicationUser).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
             return View(applicationUser);
         }
